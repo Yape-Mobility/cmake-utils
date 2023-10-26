@@ -50,6 +50,43 @@ function(create_interface_library TARGET_NAME)
     )
 endfunction()
 
+function(create_executable EXECUTABLE SOURCE_FILES PRIVATE_LINK_LIB)
+    add_executable(${EXECUTABLE} ${SOURCE_FILES})
+    target_compile_features(${EXECUTABLE} PUBLIC cxx_std_20)
+    target_link_libraries(${EXECUTABLE} ${PRIVATE_LINK_LIB})
+endfunction()
+
+function(install_ros_target TARGET_NAME)
+    install(TARGETS ${TARGET_NAME}
+        DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+    )
+endfunction()
+
+function(install_ros_targets TARGETS)
+    foreach(DIR ${TARGETS})
+        install_ros_target(${DIR})
+    endforeach()
+endfunction()
+
+function(install_ros_lib LIB_NAME)
+    install(TARGETS ${LIB_NAME}
+        ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+        LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+    )
+endfunction()
+
+function(install_ros_libs LIBS)
+    foreach(LIB ${LIBS})
+        install_ros_lib(${LIB})
+    endforeach()
+endfunction()
+
+function(install_directory DIR_NAME DIR_DEST)
+install(DIRECTORY launch/
+DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+)
+endfunction()
+
 function(install_and_export_targets_and_config TARGETS_TO_INSTALL EXPORT_NAME CMAKE_CONFIG_NAME)
     install(TARGETS ${TARGETS_TO_INSTALL}
         EXPORT ${EXPORT_NAME}
