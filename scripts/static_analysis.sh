@@ -7,12 +7,12 @@ RESULTS=()
 
 CppCheck()
 {
-  folders=$1
-  echo -e "\033[0;32m\033[1mRunning CppCheck analysis...\033[0m"
+  folders=("$@")
   for f in ${folders[@]}; do
     if [ "${f}" == "utilities" ]; then
       continue
     fi
+    echo -e "\033[0;32m\033[1mRunning CppCheck analysis on ${f} folder...\033[0m"
     cppcheck --cppcheck-build-dir=build/ --inline-suppr --enable=style --error-exitcode=1 -i build/_deps/ -i build/CMakeFiles/ ./${f}
     RESULTS+=$?
   done
@@ -55,8 +55,8 @@ CheckResults()
   fi
 }
 
-FOLDERS=$1
+FOLDERS=("$@")
 
-CppCheck $FOLDERS
+CppCheck ${FOLDERS[@]}
 # ClangTidy
 CheckResults
