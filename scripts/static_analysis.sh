@@ -14,7 +14,7 @@ CppCheck()
     fi
     echo -e "\033[0;32m\033[1mRunning CppCheck analysis on ${f} folder...\033[0m"
     cppcheck --cppcheck-build-dir=build/ --inline-suppr --enable=style --error-exitcode=1 -i build/_deps/ -i build/CMakeFiles/ ./${f}
-    RESULTS+=$?
+    RESULTS+=($?)
   done
 
   for r in ${RESULTS[@]}; do
