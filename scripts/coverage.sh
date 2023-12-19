@@ -11,3 +11,4 @@ mkdir ./coverage
 lcov -c -d . -o coverage.info
 lcov -r coverage.info "/usr*" -o coverage_no_usr.info
 genhtml coverage_no_usr.info --output-directory coverage
+rm coverage.info coverage_no_usr.info
