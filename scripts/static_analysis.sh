@@ -48,7 +48,7 @@ CheckResults()
     echo -e "\033[0;31m\033[1mFailed Clang-tidy analysis!\033[0m"
   fi
 
-  if [ $CPPCHECK_RESULT -eq 1 ] || [ $CLANG_TIDY_RESULT -eq 1 ]; then
+  if [ $CPPCHECK_RESULT -ne 0 ] || [ $CLANG_TIDY_RESULT -ne 0 ]; then
     exit 1
   else
     exit 0
